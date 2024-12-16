@@ -5,7 +5,11 @@ import (
 	"time"
 )
 
-var DefaultTimeout = 5 * time.Second
+var defaultTimeout = 5 * time.Second
+
+func SetDefaultTimeout(timeout time.Duration) {
+	defaultTimeout = timeout
+}
 
 type Async[T any] interface {
 	Await() (T, error)
@@ -19,7 +23,7 @@ type async[T any] struct {
 }
 
 func New[T any](f func() (T, error)) Async[T] {
-	return NewWithTimeout(DefaultTimeout, f)
+	return NewWithTimeout(defaultTimeout, f)
 }
 
 func NewWithTimeout[T any](timeout time.Duration, f func() (T, error)) Async[T] {
