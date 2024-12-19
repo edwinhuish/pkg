@@ -43,7 +43,7 @@ func NewWithContext[T any](ctx context.Context, f func() (T, error)) Async[T] {
 		ctx:   ctx,
 	}
 
-	Do(func() {
+	DoWithContext(ctx, func() {
 		*task.value, task.err = f()
 	}, func(err error) {
 
